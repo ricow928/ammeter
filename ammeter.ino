@@ -38,7 +38,7 @@ void setup() {
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(0,0);
-    display.println("Hello Hydro!");
+    display.println("Hello Ammeter!");
     display.display();
 
     pinMode(amp_pin, INPUT);
@@ -46,13 +46,20 @@ void setup() {
 }
 
 void loop() {
+  float zero_v = 0.46;
+  float slope = 0.121;  // V per amp
   float amp_ain = pin_average(amp_pin, 10, 50);
-  float v_amp = 5.0 * amp_ain / 1024.0;
+  float v_amp = 4.9 * amp_ain / 1024.0;
+  float delta_v = zero_v - v_amp;
+  float current = delta_v / slope;
+  
 
   display.clearDisplay();
   display.setCursor(0,0);
   display.print(F("Pin Counts: ")); display.println(amp_ain);
   display.print(F("Amp Volts: ")); display.println(v_amp);
+  display.print(F("Delta V: ")); display.println(delta_v);
+  display.print(F("Pred. Amps: ")); display.println(current);
   display.display();
   delay(1000);
 }
