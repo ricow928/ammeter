@@ -46,8 +46,8 @@ void setup() {
 }
 
 void loop() {
-  float zero_v = 0.46;
-  float slope = 0.121;  // V per amp
+  float zero_v = 2.48;
+  float slope = 0.136;  // V per amp
   float amp_ain = pin_average(amp_pin, 10, 50);
   float v_amp = 4.9 * amp_ain / 1024.0;
   float delta_v = zero_v - v_amp;
